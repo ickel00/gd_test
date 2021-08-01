@@ -98,7 +98,7 @@ function do_tasklist() {
 						console.log(`${$.title}未完成，尝试开始任务`)
 						for (let n = 0; n <= num; n++){
 							await do_task();
-							await $.wait(1000)
+							await $.wait(3000)
 						}
 					}
 					if ($.status == 3) {
@@ -131,9 +131,9 @@ function do_task() {
             const result = JSON.parse(data);
 			//console.log(`${$.title}结果：${JSON.stringify(result)}`)
 			if (result.rtn_code == 0) {
-				console.log(`${$.title} ${result.rtn_msg}}`)
+				console.log(`\n${$.title} ${result.rtn_msg}`)
 			} else {
-				console.log(`${$.title} 请求失败：${JSON.stringify(result)}`)
+				console.log(`\n${$.title} 请求失败：${JSON.stringify(result)}`)
 			}
           }
         }
@@ -156,7 +156,7 @@ function opencardHome() {
         } else {
           if (safeGet(data)) {
             const result = JSON.parse(data);
-			//console.log(`运行结果：${JSON.stringify(result)}`)
+			//console.log(result)
             if (result.rtn_code == 0) {
 				console.log(`\n打开抽卡界面成功，开始检测抽卡次数 ---`)
 				console.log(`需要收集卡数：${result.data.result.totalCardsNum} 张`)
