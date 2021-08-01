@@ -161,7 +161,7 @@ function opencardHome() {
 				console.log(`\n打开抽卡界面成功，开始检测抽卡次数 ---`)
 				console.log(`需要收集卡数：${result.data.result.totalCardsNum} 张`)
 				console.log(`已收集的卡数：${result.data.result.collectedCardsNum} 张`)
-				if (result.data.result.drawCardStatus !== undefined) {
+				if (result.data.result.drawCardStatus !== undefined && result.data.result.drawCardStatus > 0) {
 					console.log(`可抽卡次数为：${result.data.result.drawCardStatus} 次`)
 					console.log(`开始抽卡`)
 					num = result.data.result.drawCardStatus
