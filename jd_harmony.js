@@ -1,7 +1,7 @@
 /*
 荣耀换新季
 8.7 - 8.20
-无主力纯测试，不保证正确。
+无助力纯测试，不保证正确。
  */
 const $ = new Env('荣耀换新季');
 const notify = $.isNode() ? require('./sendNotify') : '';
