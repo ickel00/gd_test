@@ -20,7 +20,7 @@ if ($.isNode()) {
 } else {
   cookiesArr = [$.getdata('CookieJD'), $.getdata('CookieJD2'), ...jsonParse($.getdata('CookiesJD') || "[]").map(item => item.cookie)].filter(item => !!item);
 }
-
+const rd_char = "0123456789abcdefghijklmnopqrstuvwxyz"
 !(async () => {
   if (!cookiesArr[0]) {
     $.msg($.name, '【提示】请先获取京东账号一cookie\n直接使用NobyDa的京东签到获取', 'https://bean.m.jd.com/', {"open-url": "https://bean.m.jd.com/"});
@@ -44,9 +44,8 @@ if ($.isNode()) {
         continue
       }
 	  $.configCode = `f11f0375da524037a3e7e1da6cb4510b`
-	  $.eid = '' //抓到eid填到里面
-	  fp = '60917aab2e96c26cbcb26de479d1abdb'
-	  $.fp = randomString(false,fp.length)
+	  $.eid = randomString(90,rd_char.toUpperCase()) //抓到eid填到里面
+	  $.fp = randomString(32,rd_char)
 	  if ($.eid !== null || $.eid !== undefined || $.eid !== '') {
 		  await get_tasklist($.configCode);
 	  }
@@ -89,6 +88,7 @@ function get_tasklist(code) {
 			if (result.success == true) {
 				console.log(`\n获取活动列表成功!`)
 				tasklist = result.data.dailyTask.taskList
+        // console.debug(tasklist)
 				for (let vo of tasklist) {
 					taskCount = vo.taskCount
 					finishCount = vo.finishCount
@@ -182,14 +182,14 @@ function origin() {
   }
 }
 
-function randomString(num = false,e) {
+function randomString(len,char) {
   let res = ""
-  let char = "0123456789abcdefghijklmnopqrstuvwxyz"
-  if (num == true) {
-	  char = "0123456789"
-  }
+  // let char = "0123456789abcdefghijklmnopqrstuvwxyz"
+  // if (num == true) {
+	 //  char = "0123456789"
+  // }
   let a = char.length
-  for (let i = 0; i < e; i++) {
+  for (let i = 0; i < len; i++) {
 	  res += char.charAt(Math.floor(Math.random() * a));
   }
   return res.toString();
