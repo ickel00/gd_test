@@ -1,7 +1,7 @@
 /*
 京东工业品任务
 做完任务有4豆。要跑至少2次。
-需要自行抓取eid
+cron 13 5,16 * * * https://github.com/ickel00/gd_test/raw/main/jd_industrial_task.js
  */
 const $ = new Env('京东工业品');
 const notify = $.isNode() ? require('./sendNotify') : '';
