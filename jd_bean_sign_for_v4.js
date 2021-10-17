@@ -48,7 +48,7 @@ if ($.isNode()) {
   }
   const content = await fs.readFileSync(JD_DailyBonusPath, 'utf8')
   //金融签到body
-  let jrBodyArr = JSON.parse(process.env.JD_jrBodyArr);
+  jrBodyArr = JSON.parse(process.env.JD_jrBodyArr);
   for (let i =0; i < cookiesArr.length; i++) {
     cookie = cookiesArr[i];
     if (cookie) {
