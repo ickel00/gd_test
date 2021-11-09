@@ -89,7 +89,7 @@ function getList() {
 					$.watchTime = vo.watchTime
 					status = vo.status
 					statusName = vo.statusName
-					if ($.taskId != null && status != 2) {
+					if ($.taskId != null && status != 2 && $.taskName != '直播下单更优惠') {
 						body = `{"taskId":${$.taskId},"taskType":${$.taskType}}`
 						await doTask(body)
 					} else {
