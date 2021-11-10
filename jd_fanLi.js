@@ -97,7 +97,7 @@ function getList() {
 						console.log(`\n任务 ${$.taskName} 结束或已完成。提示：${statusName}`)
 					}
 				}
-				if (list.length > 1) {
+				if (list.length > 2) {
 					await taskRun()
 				}
             } else {
