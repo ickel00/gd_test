@@ -46,7 +46,9 @@ if ($.isNode()) {
 	  //开始任务
       $.taskStop = false;
 	  await taskRun()
-	  await $.wait(90000)
+	  if(i != cookiesArr.length) {
+		  await $.wait(90000)
+	  }
     }
   }
 })()
