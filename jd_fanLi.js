@@ -46,6 +46,7 @@ if ($.isNode()) {
 	  //开始任务
       $.taskStop = false;
 	  await taskRun()
+	  await $.wait(90000)
     }
   }
 })()
@@ -89,14 +90,16 @@ function getList() {
 					$.watchTime = vo.watchTime
 					status = vo.status
 					statusName = vo.statusName
-					if ($.taskId != null && status != 2 && $.taskName != '直播下单更优惠') {
+					if ($.taskId != null && status != 2) {
 						body = `{"taskId":${$.taskId},"taskType":${$.taskType}}`
 						await doTask(body)
 					} else {
 						console.log(`\n任务 ${$.taskName} 结束或已完成。提示：${statusName}`)
 					}
 				}
-				await taskRun()
+				if (list.length > 1) {
+					await taskRun()
+				}
             } else {
 				console.log(`\n获取 ${$.name} 任务列表失败：${JSON.stringify(result)}`)
 			}
