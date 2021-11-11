@@ -46,7 +46,7 @@ if ($.isNode()) {
 	  //开始任务
       $.taskStop = false;
 	  await taskRun()
-	  if(i != cookiesArr.length) {
+	  if((i+1) != cookiesArr.length) {
 		  await $.wait(90000)
 	  }
     }
