@@ -1220,7 +1220,7 @@ function clearCookie() {
 }
 clearCookie();
 
-async function get_jsToken() {
+(function get_jsToken() {
     if (!window.__global_jdt_risk_fp_exec) {
         window.__global_jdt_risk_fp_exec = "1";
         try {
@@ -1252,7 +1252,7 @@ async function get_jsToken() {
         } catch (l) {}
         doCollectFp()
     }
-};
+})();
 
 function doCollectFp() {
     try {
