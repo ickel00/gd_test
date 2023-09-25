@@ -6,6 +6,41 @@ var _riskFpMode = _riskFpMode || "strict";
 "function" != typeof String.prototype.endsWith && (String.prototype.endsWith = function(m) {
     return -1 !== this.indexOf(m, this.length - m.length)
 });
+
+(function() {
+    if (!window.__global_jdt_risk_fp_exec) {
+        window.__global_jdt_risk_fp_exec = "1";
+        try {
+            (new SdkCollector({
+                sdkBizId: jdtRiskUtil.getBizId()
+            })).getSdkToken(function(l, g, f, d) {
+                jdtRiskContext.d && console.log("sdk token result: ", l, g, f);
+                l && f && (jdtRiskContext.deviceInfo.sdkToken = f, l = {
+                    tk: f,
+                    t: (new Date).getTime()
+                }, d || jdtRiskStorageManager.store(collectConfig.store.sdkTokenKey, JSON.stringify(l), !1));
+                jdtRiskContext.isSdkTokenFinished = !0
+            })
+        } catch (l) {}
+        if (window.bp_bot_detect_enable) try {
+            loadScript("//gias.jd.com/dy/js/mom.js?bizId=" + window.bp_bizid + "&pageId=" + window.bp_pageid)
+        } catch (l) {}
+        try {
+            if (jdtRiskUtil.isDegrade()) {
+                var m = jdtRiskStorageManager.load(collectConfig.store[_riskFpMode].jsTokenKey),
+                    n = jdtRiskStorageManager.load(collectConfig.store[_riskFpMode].fpKey, !1);
+                if (jdtRiskUtil.isValidJsToken(m)) {
+                    jdtRiskContext.deviceInfo.jsToken = m;
+                    jdtRiskContext.deviceInfo.fp = n;
+                    jdtRiskContext.isJsTokenFinished = !0;
+                    return
+                }
+            }
+        } catch (l) {}
+        doCollectFp()
+    }
+})();
+
 var jdtRiskContext = jdtRiskContext || {
         d: !1,
         canvas_fp_md5: "",
@@ -1283,39 +1318,7 @@ function loadScript(m) {
         n.src = m;
         document.body.appendChild(n)
     } catch (l) {}
-}(function() {
-    if (!window.__global_jdt_risk_fp_exec) {
-        window.__global_jdt_risk_fp_exec = "1";
-        try {
-            (new SdkCollector({
-                sdkBizId: jdtRiskUtil.getBizId()
-            })).getSdkToken(function(l, g, f, d) {
-                jdtRiskContext.d && console.log("sdk token result: ", l, g, f);
-                l && f && (jdtRiskContext.deviceInfo.sdkToken = f, l = {
-                    tk: f,
-                    t: (new Date).getTime()
-                }, d || jdtRiskStorageManager.store(collectConfig.store.sdkTokenKey, JSON.stringify(l), !1));
-                jdtRiskContext.isSdkTokenFinished = !0
-            })
-        } catch (l) {}
-        if (window.bp_bot_detect_enable) try {
-            loadScript("//gias.jd.com/dy/js/mom.js?bizId=" + window.bp_bizid + "&pageId=" + window.bp_pageid)
-        } catch (l) {}
-        try {
-            if (jdtRiskUtil.isDegrade()) {
-                var m = jdtRiskStorageManager.load(collectConfig.store[_riskFpMode].jsTokenKey),
-                    n = jdtRiskStorageManager.load(collectConfig.store[_riskFpMode].fpKey, !1);
-                if (jdtRiskUtil.isValidJsToken(m)) {
-                    jdtRiskContext.deviceInfo.jsToken = m;
-                    jdtRiskContext.deviceInfo.fp = n;
-                    jdtRiskContext.isJsTokenFinished = !0;
-                    return
-                }
-            }
-        } catch (l) {}
-        doCollectFp()
-    }
-})();
+}
 
 function __getTkResult() {
     var m = {
