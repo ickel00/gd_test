@@ -1220,7 +1220,7 @@ function clearCookie() {
 }
 clearCookie();
 
-(function get_jsToken() {
+(function() {
     if (!window.__global_jdt_risk_fp_exec) {
         window.__global_jdt_risk_fp_exec = "1";
         try {
@@ -1254,9 +1254,10 @@ clearCookie();
     }
 })();
 
-function doCollectFp() {
+function doCollectFp(url) {
     try {
-        jdtRiskContext.deviceInfo.jsToken = jdtRiskStorageManager.load(collectConfig.store[_riskFpMode].jsTokenKey);
+        jdtRiskContext.deviceInfo.jsToken = window.jsToken;
+		console.log(jdtRiskContext.deviceInfo.jsToken,url);
         (new JdtRiskFingerPrint(collectConfig.getFpExcludeOptions(_riskFpMode))).getFp(function(b) {
             b && (jdtRiskContext.deviceInfo.fp = b)
         });
@@ -1264,17 +1265,17 @@ function doCollectFp() {
             n = "string" === typeof orderId ? orderId : "",
             l = "undefined" !== typeof jdfp_pinenp_ext && jdfp_pinenp_ext ? 2 : 1,
             g = {
-                pin: jdtRiskUtil.obtainPin(l),
+                pin: "",
                 oid: n,
                 bizId: jdtRiskUtil.getBizId(),
-                fc: jdtRiskStorageManager.load(collectConfig.store[_riskFpMode].eidKey),
+                fc: "",
                 mode: _riskFpMode,
                 p: "https:" == document.location.protocol ? "s" : "h",
                 fp: jdtRiskContext.deviceInfo.fp,
                 ctype: l,
                 v: jdtRiskContext.version,
                 f: "3",
-                o: jdtRiskUtil.getCurrentPageUrl(),
+                o: url,
                 qs: jdtRiskUtil.getUrlQueryStr(),
                 jsTk: jdtRiskContext.deviceInfo.jsToken
             };
